@@ -1,0 +1,53 @@
++how to Unpack test.tar.gz 
+Remove all "*.pyc" files from testdir recursively?
+Search for "my city is the best" in all *.py files.
+Replace the occurrence of "my konfu is the best" with "I'm a linux jedi master" in all *.txt files.
+Test if port 443 on a machine with IP address X.X.X.X is reachable.
+Get http://myinternal.webserver.local/test.html via telnet.
+How to send an email without a mail client, just on the command line?
+Find all files which have been accessed within the last 30 days.
+Explain the following command (date ; ps -ef |tail -n +2 | awk '{print $1}' | sort | uniq | wc -l ) >> Activity.log
+Write a script to list all the differences between two directories.
+In a log file with contents as <TIME> : [MESSAGE] : [ERROR_NO] - Human readable text display summary/count of specific error numbers that occurred every hour or a specific hour.
+I've lost my root password, what can I do?
+I've rebooted a remote server but after 10 minutes I'm still not able to ssh into it, what can be wrong?
+How to reboot server with command?
+What is the difference between Containers and VMs?
+What is a zombie process and what could be the cause of it?
+What do the following commands do and how would you use them?
+What is NTP servers
+tee
+awk
+tr
+cut
+tac
+curl
+wget
+watch
+head
+tail
+less
+cat
+touch
+sar
+netstat
+tcpdump
+lsof
+What does an & after a command do?
+What is swap and what is it used for?
+What is an A record, an NS record, a PTR record, a CNAME record, an MX record?
+What is the difference between hardlinks and symlinks? What happens when you remove the source to a symlink/hardlink?
+What is an inode and what fields are stored in an inode?
+Describe a scenario when you get a "filesystem is full" error, but 'df' shows there is free space.
+Describe a scenario when deleting a file, but 'df' not showing the space being freed.
+
+
+MySQL questions:
+How do you create a user?
+How do you provide privileges to a user?
+What is the difference between a "left" and a "right" join?
+Describe briefly the steps you need to follow in order to create a simple master/slave cluster.
+Why should you run "mysql_secure_installation" after installing MySQL?
+How do you check which jobs are running?
+How do you check which query are running slow?
+How would you take a backup of a MySQL database?

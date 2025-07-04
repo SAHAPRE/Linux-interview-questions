@@ -1,24 +1,110 @@
-What is swap and when is it used?
+What is swap and when is it used? ---
+Swap memory is a dedicated area on disk (or SSD) that the Linux operating system uses as virtual memory when the system’s physical RAM is full.
+A backup memory that the system can fall back on when RAM runs out.
 
-Where would look to find system logs?
+🔧 When Is Swap Used?
+Swap is used only when RAM is full. Here’s how it typically works:
+RAM is filled up by running applications.
+Linux identifies less-used memory pages.
+Those memory pages are moved to swap space (disk).
+This frees up physical RAM for active processes.
+
+🧪 Example Scenario
+Suppose your system has:
+
+4 GB RAM and 2 GB Swap then If applications use 4.5 GB of memory: - 4 GB is stored in RAM then 0.5 GB spills over into Swap
+
+📉 Downsides of Swap
+Much slower than RAM (disk I/O latency)
+Can lead to system lag or thrashing if heavily used
+Should not be used as a permanent substitute for RAM
+
+Where would look to find system logs? 
+cd/var/logs
+| File/Directory                                    | Purpose                                                             |
+| ------------------------------------------------- | ------------------------------------------------------------------- |
+| `/var/log/syslog` *(Debian/Ubuntu)*               | General system log (kernel + services)                              |
+| `/var/log/messages` *(RHEL/CentOS)*               | Similar to syslog (system messages)                                 |
+| `/var/log/auth.log`                               | Authentication logs (login, sudo, ssh)                              |
+| `/var/log/kern.log`                               | Kernel messages                                                     |
+| `/var/log/dmesg`                                  | Boot and hardware info from kernel ring buffer                      |
+| `/var/log/secure` *(RHEL)*                        | Security/authentication log                                         |
+| `/var/log/boot.log`                               | Boot-related messages                                               |
+| `/var/log/faillog`                                | Failed login attempts                                               |
+| `/var/log/wtmp`, `/var/log/utmp`, `/var/log/btmp` | Login/logout history (binary format, use `who`, `last`, `utmpdump`) |
+| Command                           | Purpose                           |
+| --------------------------------- | --------------------------------- |
+| `journalctl`                      | Show all logs                     |
+| `journalctl -xe`                  | Show recent errors (with context) |
+| `journalctl -u nginx.service`     | Show logs for a specific service  |
+| `journalctl --since "1 hour ago"` | Logs from the last hour           |
+| `journalctl -b`                   | Logs since last boot              |
+
 
 How can I see all processes that are running? How about which ones are taking up the most CPU/Memory?
+ps -ef(shows less option) - best is top and ps aux
 
 How do you restart a service?
+sudo systemctl restart nginx
+sudo systemctl restart ssh
 
 How do you see what IP address is assigned to the box?
+| Command                | Use Case                          |
+| ---------------------- | --------------------------------- |
+| `ip a`                 | Full IP and interface details     |
+| `hostname -I`          | Quick way to print IP addresses   |
+| `ip route get 1.1.1.1` | See IP used for outbound traffic  |
+| `ifconfig`             | Legacy command (use `ip` instead) |
 
 How do you install a package for both RHEL and Ubuntu/Debian?
+sudo apt update
+sudo apt install git
 
 What is /etc/fstab used for?
+The /etc/fstab file (short for File System Table) is a configuration file that tells the system how and where to mount storage devices (like disks, partitions, USB drives,
+network shares) at boot time. mount -a will be used.
+Automatically mounts filesystems and partitions during system startup.
+Defines mount points, mount options, and file system types.
 
 How do you format a partition/drive?
+Formatting a drive or partition means creating a filesystem (like ext4, xfs, vfat) on it, making it ready to store data.
+| Task                  | Command                           |
+| --------------------- | --------------------------------- |
+| List disks/partitions | `lsblk` or `sudo fdisk -l`        |
+| Format to ext4        | `sudo mkfs.ext4 /dev/sdX1`        |
+| Format to xfs         | `sudo mkfs.xfs /dev/sdX1`         |
+| Format to vfat (USB)  | `sudo mkfs.vfat /dev/sdX1`        |
+| Mount a disk          | `sudo mount /dev/sdX1 /mnt/point` |
+| Make it auto-mount    | Add entry to `/etc/fstab`         |
 
 What is /root used for?
+The /root directory is the home directory of the root user, who is the superuser or administrator on a Linux system.
+| Directory | Purpose                     | Owner  | Access             |
+| --------- | --------------------------- | ------ | ------------------ |
+| `/root`   | Home directory of root user | `root` | Only root (secure) |
+| `/home/`  | Home dirs for regular users | Varies | Per-user access    |
+| Feature                 | Description                                                             |
+| ----------------------- | ----------------------------------------------------------------------- |
+| Purpose                 | Home directory for the `root` (superuser)                               |
+| Path                    | Always located at `/root` (unlike normal users who live under `/home/`) |
+| Permissions             | Only accessible by `root` (owner: `root`, permissions: `700`)           |
+| Typical Usage           | Root's scripts, configuration files, backups, or temporary system tasks |
+| Not to be confused with | `/` → root **filesystem**, not the same as `/root`                      |
 
 What is a user’s $PATH?
 
 What various commands are used to extract files from an archive?
+| Format     | Extract Command               |
+| ---------- | ----------------------------- |
+| `.tar`     | `tar -xvf file.tar`           |
+| `.tar.gz`  | `tar -xvzf file.tar.gz`       |
+| `.tar.bz2` | `tar -xvjf file.tar.bz2`      |
+| `.tar.xz`  | `tar -xvJf file.tar.xz`       |
+| `.zip`     | `unzip file.zip`              |
+| `.gz`      | `gunzip file.gz` or `gzip -d` |
+| `.bz2`     | `bunzip2 file.bz2`            |
+| `.xz`      | `unxz file.xz`                |
+| `.rar`     | `unrar x file.rar`            |
 
 Some tougher ones:
 
@@ -33,6 +119,7 @@ How do you display which kernel modules are loaded? How do you load a module? Wh
 What is “load average”? What intervals is load average shown as? How do you show the load average?
 
 How do you show which ports are being listened on?
+netstat -tunlp
 
 How do you configure the firewall? (bonus points here if you can name how to do it using the distro specific tools and the “old school” tool)
 
